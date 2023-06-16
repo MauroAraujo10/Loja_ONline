@@ -1,0 +1,67 @@
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+#user-specific files*.userprefs
+# Files
+*.userprefs
+*.gz
+*.tmproj
+*.7z
+*.dll
+
+#Mono auto generated files
+mono_crash.*
+
+
+# Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*ilk
+*meta
+*_p.can
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.log
+*.vspscc
+*.vsSscc
+*.bssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+_Chrtzpah*
+
+# Folders
+.bin/*
+.MCAS_OnLine/bin/*
+.vscode/
+.vs/*
+.obj/*
+MCAS_OnLine/.vs/*
+MCAS_OnLine/obj/*
+.MCAS_OnLine/obj/
+build/
+
+
+# If folders don't work, you can still do this
+.vscode/*
+build/*
