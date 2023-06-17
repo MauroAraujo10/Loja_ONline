@@ -47,6 +47,14 @@ mono_crash.*
 *.pidb
 *.svclog
 *.scc
+*.vsidx
+*.cache
+*.sentinel
+*.lock
+*.v2
+*.targets
+*.props
+*.editorconfig
 
 _Chrtzpah*
 
@@ -56,9 +64,11 @@ _Chrtzpah*
 .vscode/
 .vs/*
 .obj/*
-MCAS_OnLine/.vs/*
-MCAS_OnLine/obj/*
-.MCAS_OnLine/obj/
+.Loja_ONline/.vs/*
+.Loja_ONline/obj/*
+.Loja_ONline/obj/
+.\Loja_ONline\Loja_ONline\obj\*
+Loja_ONline/Loja_ONline/obj/*
 build/
 
 
