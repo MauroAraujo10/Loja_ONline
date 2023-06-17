@@ -48,6 +48,8 @@ mono_crash.*
 *.svclog
 *.scc
 *.vsidx
+*.cache
+*.sentinel
 
 _Chrtzpah*
 
@@ -60,6 +62,7 @@ _Chrtzpah*
 .Loja_ONline/.vs/*
 .Loja_ONline/obj/*
 .Loja_ONline/obj/
+.\Loja_ONline\Loja_ONline\obj\*
 build/
 
 
