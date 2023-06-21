@@ -1,6 +1,10 @@
+using Loja_ONline.Infra;
 using Loja_ONline.Service;
 using Loja_ONline.Service.Interface;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using Loja_ONline.Infra.Repositories.Interface;
+using Loja_ONline.Infra.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,9 +21,21 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-
 #region [Dependency Injection]
-builder.Services.AddSingleton<IProductsService, ProductsService>();
+builder.Services.AddScoped<IUsuariosService, UsuariosService>();
+builder.Services.AddScoped<IUsuariosRepository, UsuariosRepository>();
+
+builder.Services.AddScoped<IVendedorService, VendedorService>();
+builder.Services.AddScoped<IVendedorRepository, VendedorRepository>();
+
+builder.Services.AddScoped<IProductsService, ProductsService>();
+builder.Services.AddScoped<IProdutosRepository, ProductsRepository>();
+#endregion
+
+#region [DataBase]
+builder.Services.AddDbContext<DataContext>(
+    options => options.UseSqlServer(builder.Configuration.GetSection("DatabaseSettings:ConnectionString").Value));
+builder.Services.AddTransient<DataContext>();
 #endregion
 
 var app = builder.Build();

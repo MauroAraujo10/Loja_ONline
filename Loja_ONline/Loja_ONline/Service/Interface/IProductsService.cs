@@ -1,9 +1,9 @@
-﻿using Loja_ONline.Entities.ViewModel;
+﻿using Loja_ONline.Entities.ViewModel.Produtos;
 
 namespace Loja_ONline.Service.Interface
 {
     public interface IProductsService
     {
-        List<ProductsViewModel> GetAll();
+        Task<List<ProductsViewModel>> GetAll();
     }
 }

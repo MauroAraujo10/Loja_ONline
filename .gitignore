@@ -51,10 +51,12 @@ mono_crash.*
 *.cache
 *.sentinel
 *.lock
+*.v1
 *.v2
 *.targets
 *.props
 *.editorconfig
+*.config
 
 _Chrtzpah*
 
@@ -69,6 +71,7 @@ _Chrtzpah*
 .Loja_ONline/obj/
 .\Loja_ONline\Loja_ONline\obj\*
 Loja_ONline/Loja_ONline/obj/*
+Loja_ONline/Loja_ONline/bin/*
 build/
 
 
