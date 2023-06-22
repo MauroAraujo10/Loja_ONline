@@ -1,4 +1,4 @@
-﻿using Loja_ONline.Entities.ViewModel.Produtos;
+﻿using Loja_ONline.Entities.ViewModel.Usuarios;
 using Loja_ONline.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,27 +6,24 @@ namespace Loja_ONline.Controller
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductsController : ControllerBase
+    public class UsuariosController : ControllerBase
     {
-        private readonly IProductsService _service;
-        private readonly ILogger<ProductsController> _logger;
-        public ProductsController(IProductsService service, ILogger<ProductsController> logger)
+        private readonly IUsuariosService _service;
+        public UsuariosController(IUsuariosService service)
         {
             _service = service;
-            _logger = logger;
         }
 
         /// <summary>
-        /// Retornar uma lista com todos os produtoss
+        /// Retornar uma lista com todos os usuarios
         /// </summary>
-        /// <param name="ct"></param>
+        /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductsViewModel))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsuariosGetDto))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAll(CancellationToken ct = default)
         {
-            _logger.LogInformation("Requisição recebida com sucesso");
             ct.ThrowIfCancellationRequested();
 
             var result = await _service.GetAll();
