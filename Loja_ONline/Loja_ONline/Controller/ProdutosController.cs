@@ -1,4 +1,4 @@
-﻿using Loja_ONline.Entities.ViewModel.Usuarios;
+﻿using Loja_ONline.Entities.ViewModel.Produtos;
 using Loja_ONline.Service.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,25 +7,28 @@ namespace Loja_ONline.Controller
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsuariosController : ControllerBase
+    public class ProdutosController : ControllerBase
     {
-        private readonly IUsuariosService _service;
-        public UsuariosController(IUsuariosService service)
+        private readonly IProductsService _service;
+        private readonly ILogger<ProdutosController> _logger;
+        public ProdutosController(IProductsService service, ILogger<ProdutosController> logger)
         {
             _service = service;
+            _logger = logger;
         }
 
         /// <summary>
-        /// Retornar uma lista com todos os usuarios
+        /// Retorna uma lista com todos os produtos
         /// </summary>
-        /// <param name="ct">Cancellation Token</param>
+        /// <param name="ct"></param>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "Administrador")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsuariosGetDto))]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProdutosGetDto))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAll(CancellationToken ct = default)
         {
+            _logger.LogInformation("Requisição recebida com sucesso");
             ct.ThrowIfCancellationRequested();
 
             var result = await _service.GetAll();
@@ -37,70 +40,67 @@ namespace Loja_ONline.Controller
         }
 
         /// <summary>
-        /// Retorna um usuário
+        /// Retornar um produto
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="id"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        [Authorize(Roles = "Administrador")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProdutosGetDto))]
         public async Task<IActionResult> GetById(string id, CancellationToken ct = default)
         {
             ct.ThrowIfCancellationRequested();
 
-            var usuario = await _service.GetById(id);
-
-            if (usuario == null)
-                return BadRequest();
-
-            return Ok(usuario);
+            var produto = await _service.GetById(id);
+            return Ok(produto);
         }
 
+
         /// <summary>
-        /// Adicona um novo usuário
+        /// Adicona um novo produto
         /// </summary>
         /// <param name="dto"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize(Roles = "Administrador")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Create([FromBody] UsuarioPostDto dto, CancellationToken ct = default)
+        [Authorize(Roles = "Administrador, Vendedor")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ProdutosPostDto))]
+        public async Task<IActionResult> Create([FromBody]ProdutosPostDto dto, CancellationToken ct = default)
         {
             ct.ThrowIfCancellationRequested();
 
             await _service.Create(dto);
-            return Created("/Usuario", dto);
+            return Created("/Produtos", dto);
         }
-
+        
         /// <summary>
-        /// Atualiza um usuário
+        /// Atualiza um produto
         /// </summary>
         /// <param name="dto"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpPut]
-        [Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador, Vendedor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Update(string id, [FromBody] UsuarioPostDto dto, CancellationToken ct = default)
+        public async Task<IActionResult> Update(string id, [FromBody]ProdutosPostDto dto, CancellationToken ct = default)
         {
             ct.ThrowIfCancellationRequested();
 
             await _service.Update(id, dto);
             return Ok();
         }
-
+        
         /// <summary>
-        /// Remove um usuário
+        /// Deleta um produto
         /// </summary>
         /// <param name="dto"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador, Vendedor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Remove([FromQuery] string id, CancellationToken ct = default)
+        public async Task<IActionResult> Delete(string id, CancellationToken ct = default)
         {
             ct.ThrowIfCancellationRequested();
 

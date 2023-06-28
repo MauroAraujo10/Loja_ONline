@@ -2,19 +2,13 @@
 
 namespace Loja_ONline.Entities.ViewModel.Usuarios
 {
-    public class UsuariosGetDto
+    public class UsuarioPostDto
     {
-        [JsonPropertyName("IdUsuario")]
-        public Guid IdUsuario { get; set; }
-
         [JsonPropertyName("Nome")]
-        public string Nome { get; set; }
+        public string Nome{ get; set; }
 
         [JsonPropertyName("DataNascimento")]
         public DateTime DataNascimento { get; set; }
-
-        [JsonPropertyName("Perfil")]
-        public string Perfil { get; set; }
 
         [JsonPropertyName("CPF")]
         public string CPF { get; set; }
