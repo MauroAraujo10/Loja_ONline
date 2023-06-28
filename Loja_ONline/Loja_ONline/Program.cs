@@ -22,14 +22,16 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 #region [Dependency Injection]
+builder.Services.AddScoped<IPerfilUsuarioRepository, PerfilUsuarioRepository>();
+
 builder.Services.AddScoped<IUsuariosService, UsuariosService>();
 builder.Services.AddScoped<IUsuariosRepository, UsuariosRepository>();
 
-builder.Services.AddScoped<IVendedorService, VendedorService>();
-builder.Services.AddScoped<IVendedorRepository, VendedorRepository>();
-
 builder.Services.AddScoped<IProductsService, ProductsService>();
-builder.Services.AddScoped<IProdutosRepository, ProductsRepository>();
+builder.Services.AddScoped<IProdutosRepository, ProdutosRepository>();
+
+builder.Services.AddScoped<IVendasService, VendasService>();
+builder.Services.AddScoped<IVendasRepository, VendasRepository>();
 #endregion
 
 #region [DataBase]
@@ -37,6 +39,8 @@ builder.Services.AddDbContext<DataContext>(
     options => options.UseSqlServer(builder.Configuration.GetSection("DatabaseSettings:ConnectionString").Value));
 builder.Services.AddTransient<DataContext>();
 #endregion
+
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -50,6 +54,13 @@ app.UseSwaggerUI(options =>
 {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
     options.RoutePrefix = string.Empty;
+});
+
+app.UseCors(c =>
+{
+    c.AllowAnyHeader();
+    c.AllowAnyMethod();
+    c.AllowAnyOrigin();
 });
 
 app.UseHttpsRedirection();
