@@ -1,5 +1,6 @@
 ﻿using Loja_ONline.Entities.ViewModel.Vendas;
 using Loja_ONline.Service.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Loja_ONline.Controller
@@ -9,6 +10,7 @@ namespace Loja_ONline.Controller
     public class VendasController : ControllerBase
     {
         private readonly IVendasService _service;
+
         public VendasController(IVendasService service)
         {
             _service = service;
@@ -20,11 +22,12 @@ namespace Loja_ONline.Controller
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpGet]
+        [Authorize(Roles = "Administrador, Vendedor")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VendasGetDto))]
         public async Task<IActionResult> GetAll(CancellationToken ct = default)
         {
             ct.ThrowIfCancellationRequested();
-            
+
             var vendas = await _service.GetAll();
             return Ok(vendas);
         }
@@ -36,6 +39,7 @@ namespace Loja_ONline.Controller
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [Authorize(Roles = "Administrador, Vendedor")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VendasGetDto))]
         public async Task<IActionResult> GetById(string id, CancellationToken ct = default)
         {
@@ -52,6 +56,7 @@ namespace Loja_ONline.Controller
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Roles = "Administrador, Vendedor")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(VendasPostDto))]
         public async Task<IActionResult> Create(VendasPostDto dto, CancellationToken ct)
         {
@@ -60,7 +65,7 @@ namespace Loja_ONline.Controller
             await _service.Create(dto);
             return Created("/Vendas", dto);
         }
-        
+
         /// <summary>
         /// Atualiza uma venda
         /// </summary>
@@ -68,6 +73,7 @@ namespace Loja_ONline.Controller
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpPut]
+        [Authorize(Roles = "Administrador, Vendedor")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VendasPostDto))]
         public async Task<IActionResult> Update(string id, VendasPostDto dto, CancellationToken ct)
         {
@@ -76,7 +82,7 @@ namespace Loja_ONline.Controller
             await _service.Update(id, dto);
             return Ok();
         }
-        
+
         /// <summary>
         /// Deleta uma venda
         /// </summary>
@@ -84,6 +90,7 @@ namespace Loja_ONline.Controller
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpDelete]
+        [Authorize(Roles = "Administrador, Vendedor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Deleta(string id, CancellationToken ct)
         {

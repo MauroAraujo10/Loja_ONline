@@ -1,5 +1,6 @@
 ﻿using Loja_ONline.Entities.ViewModel.Produtos;
 using Loja_ONline.Service.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Loja_ONline.Controller
@@ -22,6 +23,7 @@ namespace Loja_ONline.Controller
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProdutosGetDto))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAll(CancellationToken ct = default)
@@ -44,6 +46,7 @@ namespace Loja_ONline.Controller
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProdutosGetDto))]
         public async Task<IActionResult> GetById(string id, CancellationToken ct = default)
         {
@@ -61,6 +64,7 @@ namespace Loja_ONline.Controller
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Roles = "Administrador, Vendedor")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ProdutosPostDto))]
         public async Task<IActionResult> Create([FromBody]ProdutosPostDto dto, CancellationToken ct = default)
         {
@@ -77,6 +81,7 @@ namespace Loja_ONline.Controller
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpPut]
+        [Authorize(Roles = "Administrador, Vendedor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Update(string id, [FromBody]ProdutosPostDto dto, CancellationToken ct = default)
         {
@@ -93,6 +98,7 @@ namespace Loja_ONline.Controller
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpDelete]
+        [Authorize(Roles = "Administrador, Vendedor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(string id, CancellationToken ct = default)
         {

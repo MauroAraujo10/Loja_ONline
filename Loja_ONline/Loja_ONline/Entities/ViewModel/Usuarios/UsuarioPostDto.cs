@@ -4,7 +4,6 @@ namespace Loja_ONline.Entities.ViewModel.Usuarios
 {
     public class UsuarioPostDto
     {
-
         [JsonPropertyName("Nome")]
         public string Nome{ get; set; }
 
