@@ -1,9 +1,13 @@
-﻿namespace Loja_ONline.Entities.ViewModel.Login
+﻿using System.Text.Json.Serialization;
+
+namespace Loja_ONline.Entities.ViewModel.Login
 {
     public class TokenGetDto
     {
-        public Entities.Usuarios usuario{ get; set; }
+        [JsonPropertyName("Token")]
+        public string Token { get; set; }
 
-        public string token { get; set; }
+        [JsonPropertyName("Login")]
+        public string Login { get; set; }
     }
 }

@@ -9,9 +9,11 @@ namespace Loja_ONline.Service
     public class ProductsService : IProductsService
     {
         private readonly IProdutosRepository _repository;
-        public ProductsService(IProdutosRepository repository)
+        private readonly IUsuariosRepository _usuariosRepository;
+        public ProductsService(IProdutosRepository repository, IUsuariosRepository usuariosRepository)
         {
             _repository = repository;
+            _usuariosRepository = usuariosRepository;
         }
 
         public async Task<List<ProdutosGetDto>> GetAll()
@@ -61,10 +63,15 @@ namespace Loja_ONline.Service
 
         public async Task Create(ProdutosPostDto dto)
         {
+            var usuario = await _usuariosRepository.GetByLogin(dto.Login);
+
+            if (usuario == null)
+                return;
+
             var produto = new Produtos
             {
                 IdProduto = Guid.NewGuid().ToString(),
-                IdUsuario = dto.IdUsuario,
+                IdUsuario = usuario.IdUsuario,
                 Imagem = dto.Imagem,
                 Nome = dto.Nome,
                 Preco = dto.Preco,

@@ -36,7 +36,7 @@ namespace Loja_ONline.Controller
 
             var usuario = await _service.GetUserByLogin(loginViewModel);
 
-            if (usuario == null) 
+            if (usuario == null)
                 return NotFound();
 
             var token = await _service.GenerateToken(usuario);
@@ -46,8 +46,8 @@ namespace Loja_ONline.Controller
 
             return Ok(new TokenGetDto
             {
-                usuario = usuario,
-                token = token
+                Token = token,
+                Login = usuario.Login
             });
         }
     }

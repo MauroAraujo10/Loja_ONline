@@ -5,8 +5,8 @@ namespace Loja_ONline.Entities.ViewModel.Produtos
 {
     public class ProdutosPostDto
     {
-        [JsonPropertyName("IdUsuario")]
-        public string IdUsuario { get; set; }
+        [JsonPropertyName("Login")]
+        public string Login { get; set; }
         
         [JsonPropertyName("Imagem")]
         public string Imagem { get; set; }

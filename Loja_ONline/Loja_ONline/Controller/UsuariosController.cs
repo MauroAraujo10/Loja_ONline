@@ -43,7 +43,7 @@ namespace Loja_ONline.Controller
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        [Authorize(Roles = "Administrador")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetById(string id, CancellationToken ct = default)
         {
@@ -64,7 +64,7 @@ namespace Loja_ONline.Controller
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize(Roles = "Administrador")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create([FromBody] UsuarioPostDto dto, CancellationToken ct = default)
         {
@@ -81,7 +81,7 @@ namespace Loja_ONline.Controller
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpPut]
-        [Authorize(Roles = "Administrador")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Update(string id, [FromBody] UsuarioPostDto dto, CancellationToken ct = default)
         {
@@ -98,7 +98,7 @@ namespace Loja_ONline.Controller
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Authorize(Roles = "Administrador")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Remove([FromQuery] string id, CancellationToken ct = default)
         {

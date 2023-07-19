@@ -17,6 +17,11 @@ namespace Loja_ONline.Infra.Repositories
             return await _dataContext.Usuarios.AsNoTracking().Include(x => x.PerfilUsuario).ToListAsync();
         }
 
+        public async Task<Usuarios?> GetByLogin(string login)
+        {
+            return await _dataContext.Usuarios.AsNoTracking().Where(x => x.Login == login).FirstOrDefaultAsync();
+        }
+
         public async Task<Usuarios?> GetById(string id)
         {
             return await _dataContext.Usuarios.AsNoTracking().Include(x => x.PerfilUsuario).Where(x => x.IdUsuario == id).FirstOrDefaultAsync();
